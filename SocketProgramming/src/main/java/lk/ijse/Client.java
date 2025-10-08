@@ -1,5 +1,6 @@
 package lk.ijse;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -19,7 +20,11 @@ public class Client {
             DataOutputStream out = new DataOutputStream(remoteSocket.getOutputStream());
             out.writeUTF(name);
             out.flush();
-            out.close();
+
+            DataInputStream dataInputStream = new DataInputStream(remoteSocket.getInputStream());
+
+            String massage = dataInputStream.readUTF();
+            System.out.println("Client :"+massage);
             remoteSocket.close();
         }
         catch(IOException e){
